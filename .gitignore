@@ -47,6 +47,7 @@ server/*.sqlite-journal
 
 # Generated files
 server/src/generated/
+docs/
 
 # OS / editor
 .DS_Store
