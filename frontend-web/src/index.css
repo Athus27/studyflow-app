@@ -148,13 +148,12 @@ button:hover {
 }
 
 .main {
-  padding-top: var(--spacing-xl);
+  padding-top: auto;
   padding-bottom: var(--spacing-xl);
 }
 
 @media (min-width: 768px) {
   .main {
-    padding-top: var(--spacing-2xl);
     padding-bottom: var(--spacing-2xl);
   }
 }
@@ -495,11 +494,12 @@ button:hover {
 ========================= */
 
 .user-page {
+  margin: 0;
   min-height: calc(100vh - 8rem);
   padding-top: 32px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   align-items: center;
   gap: var(--spacing-lg);
 }
