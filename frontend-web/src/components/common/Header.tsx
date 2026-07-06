@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import logoIcon from "../../assets/icons/logo.svg";
 import menuIcon from "../../assets/icons/menu-icon.svg";
@@ -7,9 +7,10 @@ import userIcon from "../../assets/icons/user-icon.png";
 
 export const Header = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [showLinks, setShowLinks] = useState(false);
-	const atual_url = window.location.href;
-	const shouldShowUserButton = !atual_url.includes("/register") && !atual_url.includes("/login");
+	const shouldShowUserButton = !["/register", "/login"].includes(location.pathname);
+	const navClassName = shouldShowUserButton ? "nav-container" : "nav-container nav-container-public";
 
 	const handleUserClick = () => {
 		navigate("/user");
@@ -17,13 +18,13 @@ export const Header = () => {
 
 	return (
 		<div className="header">
-			<nav className="nav-container">
+			<nav className={navClassName}>
 				<div className="logo-container">
 					<img src={logoIcon} className="logo" alt="StudyFlow" />
-					<h1 className="img-link">StudyFlow</h1>
+					<h1 className="logo-text">StudyFlow</h1>
 					<div className="nav-links">
 						<button type="button" onClick={() => setShowLinks((current) => !current)}>
-							<img src={menuIcon} alt="Menu" className="w-6 h-6" />
+							<img src={menuIcon} alt="Menu" className="w-auto h-6" />
 						</button>
 						{showLinks && (
 							<div className="top-menu">
@@ -39,12 +40,12 @@ export const Header = () => {
 							</div>
 						)}
 					</div>
-				</div>
 				{shouldShowUserButton && (
 					<button type="button" className="user-button" onClick={handleUserClick} aria-label="Abrir página do usuário">
 						<img src={userIcon} alt="User" className="user-icon" />
 					</button>
 				)}
+				</div>
 			</nav>
 		</div>
 	);

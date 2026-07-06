@@ -1,3 +1,17 @@
 export const User = () => {
-  return <h1>Usuário</h1>
-}
+	const handleLogout = () => {
+		// TODO: conectar logout quando a autenticação da API estiver pronta.
+	};
+
+	return (
+		<section className="user-page">
+			<h1 className="text-center">Minha Conta</h1>
+			<p>Usuário: -</p>
+			<p>Email: -</p>
+
+			<button type="button" className="button" onClick={handleLogout}>
+				Sair da conta
+			</button>
+		</section>
+	);
+};
