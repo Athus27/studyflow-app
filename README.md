@@ -67,9 +67,10 @@ Neste trabalho não serão considerados:
 Protótipos funcionais para as páginas principais estão sendo codificados no diretório `frontend-web` deste repositório.
 
 Estrutura atual do frontend:
-![alt text](image-2.png)
-![alt text](image.png)
-![alt text](image-1.png)
+
+![Rotas do frontend](docs-assets/readme/frontend-routes.png)
+![Protótipo da interface](docs-assets/readme/frontend-preview.png)
+![Estrutura do backend](docs-assets/readme/backend-structure.png)
 
 - **Rotas da aplicação:** `frontend-web/src/routes/`
 - **Página de Login:** `frontend-web/src/pages/Login/`
