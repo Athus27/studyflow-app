@@ -10,6 +10,7 @@ Prisma/PostgreSQL
  */
 
 import { prisma } from "../database/client.js";
+import bcrypt from "bcrypt";
 
 export default class UserController {
 	async getAll(req, res) {
@@ -25,6 +26,7 @@ export default class UserController {
 	async getById(req, res) {}
 	async create(req, res) {
 		const { name, username, email, password, state, city } = req.body;
+		const passwordHash = await bcrypt.hash(password, 10);
 		if (!name || !username || !email || !password) {
 			return res.status(400).json({
 				code: 400,
@@ -37,7 +39,7 @@ export default class UserController {
 				name,
 				username,
 				email,
-				password,
+				password: passwordHash,
 				state,
 				city
 			}
@@ -67,7 +69,8 @@ export default class UserController {
 			});
 		}
 
-		if (user.password !== password) {
+		const isMatch = await bcrypt.compare(password, user.password);
+		if (!isMatch) {
 			return res.status(401).json({
 				code: 401,
 				message: "Invalid credentials."
