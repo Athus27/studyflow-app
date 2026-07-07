@@ -6,6 +6,7 @@ type LocationOption = {
 
 type RegisterPageProps = {
 	error?: string;
+	success?: string;
 	loading?: boolean;
 	estadoSelecionado?: string;
 	listaEstados?: LocationOption[];
@@ -16,6 +17,7 @@ type RegisterPageProps = {
 
 export const RegisterPage = ({
 	error,
+	success,
 	loading = false,
 	onSubmit,
 	onEstadoChange,
@@ -28,6 +30,7 @@ export const RegisterPage = ({
 			<h1 className="text-center">Enter Your Data</h1>
 
 			<form className="input-form" onSubmit={onSubmit}>
+				<input className="input" type="text" name="name" placeholder="Name" />
 				<input className="input" type="text" name="username" placeholder="Username" />
 
 				<div className="estados">
@@ -65,6 +68,7 @@ export const RegisterPage = ({
 				<input className="input" type="password" name="confirmPassword" placeholder="Confirm Password" />
 
 				{error && <p className="form-error">{error}</p>}
+				{success && <p className="form-success">{success}</p>}
 
 				<button className="button" type="submit" disabled={loading}>
 					{loading ? "Creating..." : "Register"}

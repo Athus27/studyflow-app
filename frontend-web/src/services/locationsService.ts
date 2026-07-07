@@ -2,8 +2,7 @@ const URL_BASE = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
 
 export const locationsService = {
 	async getEstados() {
-		const response = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
-        console.log(response)
+		const response = await fetch(URL_BASE);
 
 		return response.json();
 	},
@@ -14,9 +13,3 @@ export const locationsService = {
 		return response.json();
 	}
 };
-
-//fazendo main para testar a função getEstados
-(async () => {
-    const estados = await locationsService.getEstados();
-    // console.log(estados);
-})();
