@@ -80,14 +80,14 @@ export default class UserController {
 				});
 			}
 
-			// const isMatch = await bcrypt.compare(password, user.password);
-			const isMatch = await bcrypt.compare;
+			const isMatch = await bcrypt.compare(password, user.password);
 			if (!isMatch) {
 				return res.status(401).json({
 					code: 401,
 					message: "Invalid credentials."
 				});
 			}
+
 			console.log("logado com sucesso ");
 			return res.json({
 				id: user.id,
@@ -108,5 +108,3 @@ export default class UserController {
 	async update(req, res) {}
 	async delete(req, res) {}
 }
-
-console.log(bcrypt.hashSync("123456", 10))
