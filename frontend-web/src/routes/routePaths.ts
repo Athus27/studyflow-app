@@ -4,4 +4,5 @@ export const routePaths = {
   register: '/register',
   dashboard: '/dashboard',
   user: '/user',
+  temp: '/temp',
 } as const

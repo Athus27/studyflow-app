@@ -16,11 +16,12 @@ export const useLogin = () => {
 		try {
 			setLoading(true);
 			setError("");
-
+			console.log("user logado");
 			const user = await usersService.login({ username, password });
 			localStorage.setItem("user", JSON.stringify(user));
 			navigate(routePaths.dashboard);
 		} catch (error) {
+			console.error("Erro durante o login:", error);
 			if (error instanceof Error) {
 				setError(error.message);
 			} else {

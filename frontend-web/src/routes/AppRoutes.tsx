@@ -8,6 +8,7 @@ import { User } from "../pages/User";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { RootRedirect } from "./RootRedirect"; // Import the RootRedirect component
 import { routePaths } from "./routePaths";
+import Temp from "../pages/Temp";
 
 /* Mapa de Rotas
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
 					{
 						path: routePaths.user,
 						element: <User />
+					},
+					{
+						path: routePaths.temp,
+						element: <Temp />
 					}
 				]
 			}
