@@ -6,7 +6,7 @@
 
 O projeto **StudyFlow** é uma aplicação web Full-Stack voltada para organização de estudos, tarefas acadêmicas e sessões de foco. A proposta busca auxiliar estudantes na estruturação da rotina de aprendizado, centralizando em uma única plataforma o planejamento de atividades, o acompanhamento de progresso e a visualização de informações relevantes para a gestão do tempo.
 
-O sistema será desenvolvido com uma arquitetura separada entre frontend e backend. A interface será construída com **React**, **TypeScript** e **Vite**, enquanto a API será implementada com **Node.js**, **Express** e **Prisma**, utilizando **PostgreSQL** para persistência de dados. O objetivo é aplicar os conteúdos trabalhados na disciplina, incluindo rotas, componentes, API REST, banco de dados e organização modular do projeto.
+O sistema foi organizado com uma arquitetura separada entre frontend e backend. A interface é construída com **React**, **TypeScript** e **Vite**, enquanto a API é implementada com **Node.js**, **Express** e **Prisma**, utilizando **PostgreSQL** para persistência de dados. O objetivo é aplicar os conteúdos trabalhados na disciplina, incluindo rotas, componentes, API REST, banco de dados e organização modular do projeto.
 
 ## 1. Tema
 
@@ -50,6 +50,17 @@ O projeto terá as seguintes funcionalidades:
 - Persistência de dados com Prisma e PostgreSQL.
 - Separação entre rotas, controllers e camada de acesso ao banco.
 
+## Funcionalidades implementadas
+
+- Cadastro e login de usuários.
+- Rotas públicas e privadas no frontend.
+- CRUD de dashboards de estudo.
+- CRUD de tarefas associadas a dashboards.
+- Atualização de status das tarefas.
+- Reordenação simples de dashboards e tarefas por prioridade.
+- Registro e remoção de sessões de foco.
+- Resumo no dashboard com total de tarefas, tarefas concluídas, pendentes e minutos de foco.
+
 ## 3. Restrições
 
 Neste trabalho não serão considerados:
@@ -85,8 +96,10 @@ Estrutura atual do backend:
 - **Entry point da API:** `server/src/server.js`
 - **Configuração do Prisma:** `server/prisma.config.ts`
 - **Schema do banco:** `server/prisma/schema.prisma`
+- **Controllers:** `server/src/controller/`
+- **Rotas:** `server/src/routes/`
 
-A interface utiliza React com Vite, TypeScript, React Router DOM e Tailwind CSS. O backend utiliza Node.js, Express, Prisma e PostgreSQL.
+A interface utiliza React com Vite, TypeScript e React Router DOM. O backend utiliza Node.js, Express, Prisma e PostgreSQL.
 
 ## 5. Referências
 

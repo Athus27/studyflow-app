@@ -4,6 +4,7 @@ import cors from "cors";
 import { userRouter } from "./routes/users.js";
 import { dashboardRouter } from "./routes/dashboard.js";
 import { taskRouter } from "./routes/task.js";
+import { focusSessionRouter } from "./routes/focusSession.js";
 
 
 const PORT = 5000;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(userRouter);
 app.use(dashboardRouter);
 app.use(taskRouter);
+app.use(focusSessionRouter);
 
 app.get("/", (req, res) => {
 	return res.json({

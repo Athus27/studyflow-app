@@ -12,16 +12,17 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  name       String
-  username   String      @unique
-  email      String      @unique
-  password   String
-  state      String?
-  city       String?
-  dashboards Dashboard[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id            Int            @id @default(autoincrement())
+  name          String
+  username      String         @unique
+  email         String         @unique
+  password      String
+  state         String?
+  city          String?
+  dashboards    Dashboard[]
+  focusSessions FocusSession[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model Dashboard {
@@ -37,13 +38,27 @@ model Dashboard {
 }
 
 model Task {
-  id          Int       @id @default(autoincrement())
-  title       String
-  description String?
-  completed   Boolean   @default(false)
-  priority    Int       @default(1)
-  dashboardId Int
-  dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            Int            @id @default(autoincrement())
+  title         String
+  description   String?
+  completed     Boolean        @default(false)
+  priority      Int            @default(1)
+  dashboardId   Int
+  dashboard     Dashboard      @relation(fields: [dashboardId], references: [id])
+  focusSessions FocusSession[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model FocusSession {
+  id              Int      @id @default(autoincrement())
+  subject         String
+  notes           String?
+  durationMinutes Int
+  userId          Int
+  taskId          Int?
+  user            User     @relation(fields: [userId], references: [id])
+  task            Task?    @relation(fields: [taskId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

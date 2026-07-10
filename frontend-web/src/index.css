@@ -753,6 +753,114 @@ a:hover {
 	color: var(--color-error);
 	font-weight: 700;
 }
+
+.study-summary {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: var(--spacing-md);
+	margin: var(--spacing-xl) 0;
+}
+
+.study-summary div {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: var(--spacing-lg);
+	background-color: #ffffff;
+	border: 1px solid rgba(138, 159, 176, 0.14);
+	border-radius: 12px;
+	box-shadow: 0 12px 24px rgba(55, 79, 96, 0.08);
+}
+
+.study-summary strong {
+	color: var(--color-primary-hover);
+	font-size: 1.8rem;
+}
+
+.study-summary span {
+	color: var(--color-text-light);
+	font-weight: 700;
+}
+
+.focus-panel {
+	margin-bottom: var(--spacing-xl);
+	padding: var(--spacing-xl);
+	background-color: var(--color-card);
+	border-radius: 20px;
+	box-shadow: 0 18px 36px rgba(55, 79, 96, 0.12);
+}
+
+.focus-panel-header,
+.focus-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-md);
+}
+
+.focus-panel-header span,
+.focus-item span {
+	color: var(--color-text-light);
+	font-weight: 700;
+}
+
+.focus-form {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 110px minmax(150px, 0.6fr) auto;
+	gap: var(--spacing-md);
+	margin: var(--spacing-md) 0;
+}
+
+.focus-form input,
+.focus-form select {
+	min-height: 44px;
+	padding: 0 var(--spacing-md);
+	background-color: #ffffff;
+	border: 1px solid rgba(138, 159, 176, 0.28);
+	border-radius: 10px;
+	color: var(--color-text);
+	font: inherit;
+}
+
+.focus-list {
+	display: grid;
+	gap: var(--spacing-sm);
+}
+
+.focus-item {
+	padding: var(--spacing-md);
+	background-color: #ffffff;
+	border-radius: 12px;
+}
+
+.focus-item div {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.focus-item button {
+	color: var(--color-primary-hover);
+	font-weight: 700;
+}
+
+.form-error {
+	grid-column: 1 / -1;
+	color: var(--color-error);
+	font-weight: 700;
+}
+
+@media (max-width: 820px) {
+	.study-summary {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.focus-form,
+	.task-form,
+	.task-edit-form {
+		grid-template-columns: 1fr;
+	}
+}
 /* =========================
    Utilities
 ========================= */

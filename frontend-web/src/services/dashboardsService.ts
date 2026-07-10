@@ -9,8 +9,9 @@ export type CreateDashboardData = Pick<DashboardData, "title" | "description"> &
 
 export type UpdateDashboardData = Partial<Pick<DashboardData, "title" | "description" | "priority">>;
 
-export async function getDashboards(): Promise<DashboardData[]> {
-	const response = await fetch(`${API_URL}/api/dashboards`);
+export async function getDashboards(userId?: number): Promise<DashboardData[]> {
+	const searchParams = userId ? `?userId=${userId}` : "";
+	const response = await fetch(`${API_URL}/api/dashboards${searchParams}`);
 	const data = await response.json();
 
 	if (!response.ok) {

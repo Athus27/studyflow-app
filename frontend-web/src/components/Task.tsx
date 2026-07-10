@@ -59,6 +59,23 @@ export const Task = ({ task, onUpdate, onRemove, onMoveUp, onMoveDown, canMoveUp
 		}
 	};
 
+	const handleToggleCompleted = async () => {
+		try {
+			setIsLoading(true);
+			setError(null);
+
+			const updatedTask = await updateTask(task.id, {
+				completed: !task.completed
+			});
+
+			onUpdate?.(updatedTask);
+		} catch {
+			setError("Nao foi possivel atualizar o status da tarefa.");
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	return (
 		<div className="task-card">
 			<span className={task.completed ? "task-check task-check-done" : "task-check"} />
@@ -107,6 +124,9 @@ export const Task = ({ task, onUpdate, onRemove, onMoveUp, onMoveDown, canMoveUp
 							</button>
 							<button type="button" onClick={handleRemove} disabled={isLoading}>
 								remove
+							</button>
+							<button type="button" onClick={handleToggleCompleted} disabled={isLoading}>
+								{task.completed ? "mark pending" : "mark done"}
 							</button>
 							<button type="button" onClick={() => onMoveUp?.(task)} disabled={isLoading || !canMoveUp}>
 								move up

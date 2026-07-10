@@ -28,8 +28,11 @@ export class DashboardController {
   }
 
   async getAll(req, res) {
+    const userId = req.query.userId ? Number(req.query.userId) : undefined;
+
     try {
 	      const dashboards = await prisma.dashboard.findMany({
+          where: userId ? { userId } : undefined,
           orderBy: {
             priority: "asc"
           },

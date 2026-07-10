@@ -5,6 +5,8 @@ import { addDashboard, deleteDashboard, getDashboards, updateDashboard } from ".
 import HeaderContainer from "../../components/common/HeaderContainer";
 import { addTask, updateTask } from "../../services/tasksService";
 import type { TaskData } from "../../types/task";
+import { addFocusSession, deleteFocusSession, getFocusSessions } from "../../services/focusSessionsService";
+import type { FocusSessionData } from "../../types/focusSession";
 
 export const Dashboard = () => {
 	const user = localStorage.getItem("user");
@@ -16,6 +18,12 @@ export const Dashboard = () => {
 	const [dashboardDescription, setDashboardDescription] = useState("");
 	const [dashboardPriority, setDashboardPriority] = useState("");
 	const [dashboardError, setDashboardError] = useState<string | null>(null);
+	const [focusSessions, setFocusSessions] = useState<FocusSessionData[]>([]);
+	const [focusSubject, setFocusSubject] = useState("");
+	const [focusNotes, setFocusNotes] = useState("");
+	const [focusDurationMinutes, setFocusDurationMinutes] = useState("25");
+	const [focusTaskId, setFocusTaskId] = useState("");
+	const [focusError, setFocusError] = useState<string | null>(null);
 	const [taskTitle, setTaskTitle] = useState("");
 	const [taskDescription, setTaskDescription] = useState("");
 	const [taskPriority, setTaskPriority] = useState("");
@@ -24,8 +32,18 @@ export const Dashboard = () => {
 	const loggedUser = user ? JSON.parse(user) : null;
 
 	useEffect(() => {
-		getDashboards().then(setDashboards);
-	}, []);
+		if (!loggedUser?.id) {
+			return;
+		}
+
+		getDashboards(loggedUser.id).then(setDashboards);
+		getFocusSessions(loggedUser.id).then(setFocusSessions);
+	}, [loggedUser?.id]);
+
+	const allTasks = dashboards.flatMap((dashboard) => dashboard.tasks ?? []);
+	const completedTasks = allTasks.filter((task) => task.completed).length;
+	const pendingTasks = allTasks.length - completedTasks;
+	const totalFocusMinutes = focusSessions.reduce((total, session) => total + session.durationMinutes, 0);
 
 	const resetDashboardForm = () => {
 		setDashboardTitle("");
@@ -99,6 +117,47 @@ export const Dashboard = () => {
 			setEditingDashboardId(null);
 		} catch {
 			setTaskError("Nao foi possivel cadastrar a tarefa.");
+		}
+	};
+
+	const handleCreateFocusSession = async () => {
+		if (!focusSubject.trim()) {
+			setFocusError("Informe o assunto da sessao.");
+			return;
+		}
+
+		if (!loggedUser?.id) {
+			setFocusError("Usuario logado nao encontrado.");
+			return;
+		}
+
+		try {
+			setFocusError(null);
+
+			const newFocusSession = await addFocusSession({
+				subject: focusSubject,
+				notes: focusNotes,
+				durationMinutes: Number(focusDurationMinutes) || 25,
+				userId: loggedUser.id,
+				taskId: focusTaskId ? Number(focusTaskId) : undefined
+			});
+
+			setFocusSessions((currentSessions) => [newFocusSession, ...currentSessions]);
+			setFocusSubject("");
+			setFocusNotes("");
+			setFocusDurationMinutes("25");
+			setFocusTaskId("");
+		} catch {
+			setFocusError("Nao foi possivel registrar a sessao de foco.");
+		}
+	};
+
+	const handleRemoveFocusSession = async (focusSessionId: number) => {
+		try {
+			await deleteFocusSession(focusSessionId);
+			setFocusSessions((currentSessions) => currentSessions.filter((session) => session.id !== focusSessionId));
+		} catch {
+			setFocusError("Nao foi possivel remover a sessao de foco.");
 		}
 	};
 
@@ -323,6 +382,80 @@ export const Dashboard = () => {
 						</div>
 					</div>
 				)}
+			</div>
+
+			<div className="study-summary">
+				<div>
+					<strong>{allTasks.length}</strong>
+					<span>tarefas</span>
+				</div>
+				<div>
+					<strong>{completedTasks}</strong>
+					<span>concluidas</span>
+				</div>
+				<div>
+					<strong>{pendingTasks}</strong>
+					<span>pendentes</span>
+				</div>
+				<div>
+					<strong>{totalFocusMinutes}</strong>
+					<span>minutos de foco</span>
+				</div>
+			</div>
+
+			<div className="focus-panel">
+				<div className="focus-panel-header">
+					<h3>Sessoes de foco</h3>
+					<span>{focusSessions.length} registros</span>
+				</div>
+
+				<div className="focus-form">
+					<input
+						type="text"
+						placeholder="Assunto"
+						value={focusSubject}
+						onChange={(event) => setFocusSubject(event.target.value)}
+					/>
+					<input
+						type="text"
+						placeholder="Notas"
+						value={focusNotes}
+						onChange={(event) => setFocusNotes(event.target.value)}
+					/>
+					<input
+						type="number"
+						min="1"
+						placeholder="Minutos"
+						value={focusDurationMinutes}
+						onChange={(event) => setFocusDurationMinutes(event.target.value)}
+					/>
+					<select value={focusTaskId} onChange={(event) => setFocusTaskId(event.target.value)}>
+						<option value="">Sem tarefa</option>
+						{allTasks.map((task) => (
+							<option key={task.id} value={task.id}>
+								{task.title ?? task.text}
+							</option>
+						))}
+					</select>
+					<button className="button" type="button" onClick={handleCreateFocusSession}>
+						Registrar foco
+					</button>
+					{focusError && <p className="form-error">{focusError}</p>}
+				</div>
+
+				<div className="focus-list">
+					{focusSessions.slice(0, 5).map((session) => (
+						<div key={session.id} className="focus-item">
+							<div>
+								<strong>{session.subject}</strong>
+								<span>{session.durationMinutes} min{session.task ? ` - ${session.task.title}` : ""}</span>
+							</div>
+							<button type="button" onClick={() => handleRemoveFocusSession(session.id)}>
+								remover
+							</button>
+						</div>
+					))}
+				</div>
 			</div>
 
 				{[...dashboards].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999)).map((dashboard, dashboardIndex, orderedDashboards) => {
