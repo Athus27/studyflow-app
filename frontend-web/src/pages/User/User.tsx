@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router-dom";
+import { routePaths } from "../../routes/routePaths";
+
 export const User = () => {
+	const navigate = useNavigate();
 	const user = localStorage.getItem("user");
+
 	const handleLogout = () => {
-		// TODO: conectar logout quando a autenticação da API estiver pronta.
+		localStorage.removeItem("user");
+		navigate(routePaths.login, { replace: true });
 	};
 
 	return (
