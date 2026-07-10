@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { routePaths } from "../../routes/routePaths";
+
 type LocationOption = {
 	id: string;
 	nome?: string;
@@ -73,6 +76,10 @@ export const RegisterPage = ({
 				<button className="button" type="submit" disabled={loading}>
 					{loading ? "Creating..." : "Register"}
 				</button>
+
+				<p className="auth-link">
+					Já tem conta? <Link to={routePaths.login}>Entrar</Link>
+				</p>
 			</form>
 		</section>
 	);
