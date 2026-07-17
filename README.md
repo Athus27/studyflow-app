@@ -112,3 +112,127 @@ PRISMA. **Prisma Documentation**. Disponível em: <https://www.prisma.io/docs>.
 VITE. **Vite Documentation**. Disponível em: <https://vite.dev/>.
 
 POSTGRESQL. **PostgreSQL Documentation**. Disponível em: <https://www.postgresql.org/docs/>.
+
+---
+
+# **CSI606-2026-01 - Remoto - Trabalho Final - Resultados**
+
+## *Discente: Athus Silva Souza - 22.2.8079*
+
+### Resumo
+
+O **StudyFlow** foi desenvolvido como uma aplicação web Full-Stack para auxiliar estudantes na organização da rotina de estudos. O sistema permite cadastrar usuário, fazer login, acessar uma área protegida, criar dashboards de estudo e gerenciar tarefas associadas a esses dashboards.
+
+A versão final centraliza as principais ações em uma interface web simples, com integração entre frontend, API REST e banco de dados. O objetivo principal foi aplicar os conceitos da disciplina em um projeto completo, passando por rotas, componentes, controllers, banco relacional, Prisma e consumo de API pelo React.
+
+### 1. Tecnologias utilizadas - Backend e Frontend
+
+**Backend**
+
+- **Node.js** como ambiente de execução JavaScript.
+- **Express** para criação da API REST.
+- **Prisma ORM** para modelagem e acesso ao banco de dados.
+- **PostgreSQL** como banco de dados relacional.
+- **bcrypt** para tratamento de senha no fluxo de autenticação.
+- **CORS** para permitir a comunicação entre frontend e backend.
+
+**Frontend**
+
+- **React** para construção da interface.
+- **TypeScript** para tipagem do código.
+- **Vite** como ferramenta de build e desenvolvimento.
+- **React Router DOM** para controle de rotas públicas e privadas.
+- **CSS** para estilização das telas e componentes.
+
+### 2. Funcionalidades implementadas
+
+- Cadastro de usuário.
+- Login de usuário.
+- Proteção de rotas privadas no frontend.
+- Redirecionamento entre páginas públicas e privadas.
+- Tela de dashboard para o usuário autenticado.
+- Cadastro, listagem, edição e remoção de dashboards.
+- Cadastro, listagem, edição e remoção de tarefas.
+- Associação de tarefas a dashboards.
+- Atualização do status das tarefas como concluída ou pendente.
+- Organização de dashboards e tarefas por prioridade.
+- Resumo de tarefas no dashboard, incluindo total, concluídas e pendentes.
+- Separação do backend em rotas, controllers e acesso ao banco com Prisma.
+
+### 3. Funcionalidades previstas e não implementadas
+
+- **Sessões de foco completas:** a proposta previa registro detalhado de sessões de estudo, associação com tarefas e histórico. A versão final priorizou o CRUD de dashboards e tarefas, deixando esse módulo para evolução futura.
+- **Relatórios estatísticos mais completos:** foram implementados indicadores simples no dashboard, mas não relatórios avançados, porque o escopo final ficou concentrado nas operações principais do sistema.
+- **Integração com calendário externo e notificações:** essas funcionalidades já estavam fora das restrições da proposta e não foram incluídas.
+- **Compartilhamento entre usuários:** não foi implementado porque exigiria regras adicionais de permissão e colaboração, aumentando a complexidade do trabalho.
+
+### 4. Outras funcionalidades implementadas
+
+- Ordenação simples por prioridade para dashboards e tarefas.
+- Exclusão de dashboards removendo também as tarefas relacionadas.
+- Estrutura modular de serviços no frontend para isolar as chamadas HTTP.
+- Documentação auxiliar das lógicas de CRUD no arquivo `LOGICASCRUDreadme.md`.
+- Uso de rotas protegidas para impedir acesso direto às telas internas sem autenticação local.
+
+### 5. Principais desafios e dificuldades
+
+O principal desafio foi integrar corretamente as camadas do projeto: interface React, serviços HTTP, rotas Express, controllers e Prisma. Para resolver isso, o sistema foi dividido em responsabilidades menores, deixando o frontend responsável pela experiência do usuário e o backend responsável pelas regras de persistência.
+
+Outra dificuldade foi manter o relacionamento entre dashboards e tarefas funcionando de forma consistente. Isso foi resolvido usando relações no Prisma e criando rotas específicas para tarefas dentro de um dashboard.
+
+Também houve atenção à organização do código, pois o projeto envolve várias partes diferentes. A separação em pastas de `routes`, `controller`, `services`, `hooks`, `pages` e `components` ajudou a manter o desenvolvimento mais claro e fácil de explicar.
+
+### 6. Instruções para instalação e execução
+
+**Pré-requisitos**
+
+- Node.js instalado.
+- PostgreSQL instalado ou uma instância PostgreSQL disponível.
+- Arquivo `.env` configurado no backend com a variável `DATABASE_URL`.
+
+Exemplo de `DATABASE_URL`:
+
+```env
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/studyflow"
+```
+
+**Backend**
+
+```bash
+cd server
+npm install
+npx prisma migrate dev
+npm run dev
+```
+
+Por padrão, a API executa em:
+
+```txt
+http://localhost:5000
+```
+
+**Frontend**
+
+```bash
+cd frontend-web
+npm install
+npm run dev
+```
+
+Por padrão, o Vite informa no terminal o endereço local da aplicação, geralmente:
+
+```txt
+http://localhost:5173
+```
+
+### 7. Referências
+
+EXPRESS. **Express - Node.js web application framework**. Disponível em: <https://expressjs.com/>. Acesso em: 17 jul. 2026.
+
+META. **React Documentation**. Disponível em: <https://react.dev/>. Acesso em: 17 jul. 2026.
+
+PRISMA. **Prisma Documentation**. Disponível em: <https://www.prisma.io/docs>. Acesso em: 17 jul. 2026.
+
+VITE. **Vite Documentation**. Disponível em: <https://vite.dev/>. Acesso em: 17 jul. 2026.
+
+POSTGRESQL. **PostgreSQL Documentation**. Disponível em: <https://www.postgresql.org/docs/>. Acesso em: 17 jul. 2026.
